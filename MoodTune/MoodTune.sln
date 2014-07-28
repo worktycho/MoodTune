@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MoodTune", "MoodTune\MoodTune.vbproj", "{2B9C1171-D72B-49D8-B62A-6EDBA5EDD42E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B9C1171-D72B-49D8-B62A-6EDBA5EDD42E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B9C1171-D72B-49D8-B62A-6EDBA5EDD42E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B9C1171-D72B-49D8-B62A-6EDBA5EDD42E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B9C1171-D72B-49D8-B62A-6EDBA5EDD42E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
