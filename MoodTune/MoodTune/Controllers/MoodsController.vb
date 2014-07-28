@@ -5,8 +5,9 @@
         '
         ' GET: /Moods
 
-        Function GetList() As ActionResult
-            Return View()
+        Async Function GetList() As Threading.Tasks.Task(Of ActionResult)
+            Dim tagstring = Await LastFMTagFetcher.GetSongs()
+            Return View(model:=New With {.tagstring = tagstring})
         End Function
 
     End Class
