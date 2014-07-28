@@ -11,6 +11,8 @@ Public Class RouteConfig
 
         routes.MapRoute("Index", "", defaults:=New With {.controller = "Home", .action = "Index"})
 
+        routes.MapRoute("GetMoods", "Moods/{MoodName}", defaults:=New With {.controller = "Moods", .action = "GetList"})
+
         routes.MapRoute( _
             name:="Default", _
             url:="{controller}/{action}/{id}", _
