@@ -9,6 +9,8 @@ Public Class RouteConfig
     Public Shared Sub RegisterRoutes(ByVal routes As RouteCollection)
         routes.IgnoreRoute("{resource}.axd/{*pathInfo}")
 
+        routes.MapRoute("Index", "", defaults:=New With {.controller = "Home", .action = "Index"})
+
         routes.MapRoute( _
             name:="Default", _
             url:="{controller}/{action}/{id}", _
