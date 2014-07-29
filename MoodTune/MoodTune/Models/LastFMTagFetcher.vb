@@ -5,9 +5,9 @@ Public Class LastFMTagFetcher
 
     Private Shared APIKey As String = "2f56d6db848d93c852aa61d070fe1a9b"
 
-    Public Shared Async Function GetSongs() As Threading.Tasks.Task(Of List(Of Song))
+    Public Shared Async Function GetSongs(MoodName As String) As Threading.Tasks.Task(Of List(Of Song))
         Dim songsfetcher As New Net.Http.HttpClient()
-        Dim response = Await songsfetcher.GetAsync("http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=disco&api_key=" & APIKey)
+        Dim response = Await songsfetcher.GetAsync("http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=" & MoodName & "&api_key=" & APIKey)
         Dim responsetext = Await response.Content.ReadAsStringAsync()
 
         Dim Xml = XDocument.Parse(responsetext)

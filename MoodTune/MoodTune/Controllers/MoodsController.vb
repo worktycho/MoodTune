@@ -11,7 +11,10 @@ Namespace MoodTune
         ' GET: /Moods
 
         Async Function GetList() As Threading.Tasks.Task(Of ActionResult)
-            Dim songs = Await LastFMTagFetcher.GetSongs()
+
+            Dim moodname As String = CStr(RouteData.Values("MoodName"))
+
+            Dim songs = Await LastFMTagFetcher.GetSongs(moodname)
             Dim songsJSON = JsonConvert.SerializeObject(songs)
 
             Dim result As New ContentResult
