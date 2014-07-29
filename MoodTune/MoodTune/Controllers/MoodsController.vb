@@ -14,8 +14,17 @@ Namespace MoodTune
 
             Dim moodname As String = CStr(RouteData.Values("MoodName"))
 
-            Dim songs = Await LastFMTagFetcher.GetSongs(moodname)
-            Dim songsJSON = JsonConvert.SerializeObject(songs)
+            Dim origsongs = Await LastFMTagFetcher.GetSongs(moodname)
+            Dim awaitarray As New List(Of Threading.Tasks.Task(Of String))
+
+            For i = 0 To origsongs.Count - 1
+                awaitarray.Add(SoundCloudMapper.GetEmbedId(origsongs(i).Name))
+            Next
+
+            For i = 0 To origsongs.Count - 1
+                origsongs(i).Link = Await awaitarray(i)
+            Next
+            Dim songsJSON = JsonConvert.SerializeObject(origsongs)
 
             Dim result As New ContentResult
             result.Content = songsJSON
