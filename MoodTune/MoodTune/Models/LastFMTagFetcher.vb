@@ -14,12 +14,11 @@ Public Class LastFMTagFetcher
 
         Dim tracks As IEnumerable(Of XElement) = Xml.<lfm>.<toptracks>.<track>
 
-        Dim names = From track In tracks Select track.<name>
-
         Dim songs As New List(Of Song)
-        For Each item In names
-            Dim SongName As String = item.First().Value
-            songs.Add(New Song With {.Name = SongName})
+        For Each item In tracks
+            Dim SongName As String = item.<name>.First().Value
+            Dim SongArtistName As String = item.<artist>.<name>.First().Value
+            songs.Add(New Song With {.Name = SongName, .Artist = SongArtistName})
         Next
 
         Return songs
