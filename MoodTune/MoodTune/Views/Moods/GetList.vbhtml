@@ -3,10 +3,7 @@
 End Code
 
 @Code
-    Dim test = ViewData.Model.tagstring()
+    Dim test = ViewData.Model.content()
 End Code
 
 @test
-
-<h2>GetList</h2>
-

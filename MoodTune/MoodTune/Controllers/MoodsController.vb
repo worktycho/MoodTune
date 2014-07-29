@@ -1,4 +1,9 @@
-﻿Namespace MoodTune
+﻿
+Option Strict On
+
+Imports Newtonsoft.Json
+
+Namespace MoodTune
     Public Class MoodsController
         Inherits System.Web.Mvc.Controller
 
@@ -6,8 +11,12 @@
         ' GET: /Moods
 
         Async Function GetList() As Threading.Tasks.Task(Of ActionResult)
-            Dim tagstring = Await LastFMTagFetcher.GetSongs()
-            Return View(model:=New With {.tagstring = tagstring})
+            Dim songs = Await LastFMTagFetcher.GetSongs()
+            Dim songsJSON = JsonConvert.SerializeObject(songs)
+
+            Dim result As New ContentResult
+            result.Content = songsJSON
+            Return result
         End Function
 
     End Class
