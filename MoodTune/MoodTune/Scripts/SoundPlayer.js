@@ -1,6 +1,5 @@
 ﻿function playAudio(mood) {
     getSongsByMood(mood, function (tracks) {
-        console.log("1");
         var frame = document.createElement("iframe");
         frame.id = "sc-widget";
         $('body')[0].appendChild(frame);
@@ -27,4 +26,8 @@ function playSongsByMood(name) {
 
 function playSoundCloudAudio(obj) {
     console.log(obj)
+}
+
+function getNextTrack(mood, callback) {
+    return getSongsByMood(mood, callback);
 }
