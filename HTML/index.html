@@ -2,29 +2,107 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 	<title>Mood Tune</title>
 	<script type="text/javascript">
+	function toggleConsole()
+	{
+		var console = document.getElementById("consolewrap");
+		console.hidden = !console.hidden;
+	}
+	var selected = {hap:false, sad:false, dra:false, ins:false, mel:false, ang:false, cal:false, exi:false, ner:false};
+	var audio;
+	function logM(text)
+	{
+		var d1 = new Date();
+		var d2 = new Date(d1.getUTCHours(), d1.getUTCMinutes(), d1.getUTCSeconds());
+		document.getElementById("console").innerHTML+="<div class='cnscnt'>["+d1.getUTCHours()+":"+d1.getUTCMinutes()+":"+d1.getUTCSeconds()+"]   "+text+"</div><br>";
+	}
+	function tagSelect(type)
+	{
+		selected[type] = !selected[type];
+		logM("Type '"+type+"' selected! State active = "+selected[type]);
+		updateSel(type);
+	}
+	function updateSel(type)
+	{
+		//If no type is specified then update all
+		if(type==null){ for(var typename in selected) updateSel(typename); return;}
+		var sel = document.getElementById(type);
+		if(selected[type]) sel = sel.className += " selected";
+		else sel.className = sel.className.replace( /(?:^|\s)selected(?!\S)/g , '' );
+	}
+	function randomise()
+	{
+		var type;
+		for(type in selected) selected[type] = [true,false][Math.round(Math.random())];
+		updateSel(null);
+	}
+	function updatePlayAudio()
+	{
+		
+	}
+	function localData(key,value)
+	{
+		localStorage.setItem(key, value);
+	}
 	function playAudio(type)
 	{
-		var audio = new Audio("test.mp3");
+		return;
+		/*if(audio.isPlaying()) 
+		{
+			logM("Audio is already playing!")
+			return;
+		}
+		*/
+		if(type == 'hap')
+		{
+			setAudio("");
+		}
+		//audio = new Audio('test.mp3');
 		audio.play();
+		
+	}
+
+	function setAudio(link)
+	{
+		audio = new Audio(link);
 	}
 	</script>
 </head>
 <body>
-	<h1>Welcome to the Mood Tune Website!</h1>
+	<!--<h1>Welcome to the Mood Tune Website!</h1>-->
 	<div class="tags">
-		<article id="happy" class="tag">Happy</article>
-		<article class="tag" onclick="playaudio('sad');">Sad</article>
-		<article class="tag">b</article>
+		<article class="tag" onclick="playAudio('hap');tagSelect('hap');"><span id="hap">Happy</span></article>
+		<article class="tag" onclick="playAudio('sad');tagSelect('sad');"><span id="sad">Sad</span></article>
+		<article class="tag" onclick="playAudio('dra');tagSelect('dra');"><span id="dra">Dramatic</span></article>
 
-		<article class="tag">c</article>
-		<article class="tag">d</article>
-		<article class="tag">e</article>
+		<article class="tag" onclick="playAudio('ins');tagSelect('ins');"><span id="ins">Inspirational</span></article>
+		<article class="tag" onclick="playAudio('mel');tagSelect('mel');"><span id="mel">Melancholic</span></article>
+		<article class="tag" onclick="playAudio('ang');tagSelect('ang');"><span id="ang">Angry</span></article>
 
-		<article class="tag">f</article>
-		<article class="tag">g</article>
-		<article class="tag">h</article>		
+		<article class="tag" onclick="playAudio('cal');tagSelect('cal');"><span id="cal">Calm</span></article>
+		<article class="tag" onclick="playAudio('exi');tagSelect('exi');"><span id="exi">Exited</span></article>
+		<article class="tag" onclick="playAudio('ner');tagSelect('ner');"><span id="ner">Nervous</span></article>		
 	</div>
+	<input type="button" class="rndbtn" onclick="randomise()" value="Randomise"><br>
+	<!--<audio controls>
+	 <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.mp4"
+	         type='audio/mp4'>
+	 <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.oga"
+	         type='audio/ogg; codecs=vorbis'>
+	 <p>Your user agent does not support the HTML5 Audio element.</p>
+	</audio>
+	-->
+	<label>Show console:</label>
+	<div class="checkbox"><input type="checkbox" onclick="toggleConsole()"></div>
+	<div id="consolewrap" class="console" hidden="true">
+	<div id="console">
+	</div>
+	<div class="cnscnt">>___</div>
+	</div>
+
 </body>
 </html>
