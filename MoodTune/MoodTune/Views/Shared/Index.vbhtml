@@ -29,28 +29,6 @@ End Code
     function localData(key, value) {
         localStorage.setItem(key, value);
     }
-	function playAudio(type)
-	{
-		console.log("UnImplemented")
-	}
-
-	function getSongsByMood(name, callback)
-	{
-	    console.log(name)
-	    var ajax = $.getJSON( "/Moods/" + name, {}, callback);
-	}
-
-	function playSongsByMood(name)
-	{
-	    getSongsByMood(name, function (data) {
-            console.log("callback")
-	        playSoundCloudAudio(data[0]);
-	    });
-	}
-
-	function playSoundCloudAudio(obj) {
-        console.log(obj)
-	}
 
 </script>
 
@@ -77,4 +55,3 @@ End Code
 	 <p>Your user agent does not support the HTML5 Audio element.</p>
 	</audio>
 	-->
-</div>

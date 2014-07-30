@@ -262,6 +262,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Models\YoutubeMapper.xml" />
     <Content Include="packages.config" />
+    <Content Include="Scripts\SoundPlayer.js" />
     <Content Include="Views\Shared\Index.vbhtml" />
     <Content Include="Views\Moods\GetList.vbhtml" />
   </ItemGroup>
