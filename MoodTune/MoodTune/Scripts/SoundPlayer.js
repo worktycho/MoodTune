@@ -1,11 +1,14 @@
 ﻿function playAudio(mood) {
     getSongsByMood(mood, function (tracks) {
-        console.log("1");
         var frame = document.createElement("iframe");
         frame.id = "sc-widget";
         $('body')[0].appendChild(frame);
         frame.src = "https://w.soundcloud.com/player/?auto_play=true&url=" + GetSoundCloudURL(tracks[0]);
-    });
+        widget       = SC.Widget(frame);
+        widget.bind(SC.Widget.Events.READY, function() {
+        widget.bind(SC.Widget.Events.FINISH, function() {
+        console.log("FINISH");
+        });});});
 }
 
 function GetSoundCloudURL(track) {
@@ -28,14 +31,9 @@ function playSongsByMood(name) {
 function playSoundCloudAudio(obj) {
     console.log(obj)
 }
-  (function(){
-    var widgetIframe = document.getElementById('sc-widget'),
-        widget       = SC.Widget(widgetIframe);
 
-    widget.bind(SC.Widget.Events.READY, function() {
-      widget.bind(SC.Widget.Events.FINISH, function() {
-        console.log("FINISH");
-        });
-      });
-      });
 
+
+function getNextTrack(mood, callback) {
+    return getSongsByMood(mood, callback);
+}
