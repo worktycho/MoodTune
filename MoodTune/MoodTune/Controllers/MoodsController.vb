@@ -15,25 +15,30 @@ Namespace MoodTune
             Dim moodname As String = CStr(RouteData.Values("MoodName"))
 
             Dim cache = HttpRuntime.Cache
-            Dim cachedmood As String = CStr(cache("Moods." & moodname))
-            If cachedmood Is Nothing Then
-                Dim random As New Random
-                Dim origsongs = (Await LastFMTagFetcher.GetSongs(moodname)).Skip(random.Next(50)).Take(1).ToList()
-                Dim awaitarray As New List(Of Threading.Tasks.Task(Of String))
+            Dim cachedsongs As List(Of Song) = DirectCast(cache("Moods." & moodname), List(Of Song))
 
-                For i = 0 To origsongs.Count - 1
-                    awaitarray.Add(SoundCloudMapper.GetEmbedId(origsongs(i).Name))
-                Next
+            Dim random As New Random
 
-                For i = 0 To origsongs.Count - 1
-                    origsongs(i).Link = Await awaitarray(i)
-                Next
-                Dim songsJSON = JsonConvert.SerializeObject(origsongs)
-                cachedmood = songsJSON
-                cache("Moods." & moodname) = cachedmood
+            If cachedsongs Is Nothing Then
+                cachedsongs = Await LastFMTagFetcher.GetSongs(moodname)
+                cache("Moods." & moodname) = cachedsongs
             End If
+
+            Dim SkipInfo As Dictionary(Of String, Integer) = DirectCast(Session("song_perfs"), Dictionary(Of String, Integer))
+            If SkipInfo Is Nothing Then SkipInfo = New Dictionary(Of String, Integer)
+            Dim chosenSongs As IEnumerable(Of Song)
+
+            chosenSongs = From song In cachedsongs
+                          Where Not (SkipInfo.ContainsKey(song.Name) AndAlso SkipInfo(song.Name) > 5)
+                          Skip random.Next(50) Take 1
+
+            For Each Song In chosenSongs
+                Song.Link = Await SoundCloudMapper.GetEmbedId(Song.Name)
+            Next
+
+            Dim chosenSongsJSON As String = JsonConvert.SerializeObject(chosenSongs)
             Dim result As New ContentResult
-            result.Content = cachedmood
+            result.Content = chosenSongsJSON
             Return result
         End Function
 
