@@ -44,6 +44,34 @@ End Code
         getNextTrack(getRandomMood(), function (tracks) { widget.load(GetSoundCloudURL(tracks[0])) });
     }
 
+    @code
+        If Session("Song_prefs") Is Nothing Then
+    End Code
+    (function () {
+        setTimeout(function () {
+            prefs = {}
+            // TODO: Remove this loop
+            for (var i = 0; i < localStorage.length; i++) {
+                var key = localStorage.key(i);
+                if (key.indexOf("SONGDATA_") == 0) {
+                    prefs[key] = localStorage.getItem(key);
+                }
+            }
+            $.ajax({
+                url: '@(Url.Action("SetLearnedPrefs"))',
+                type: 'POST',
+                data: JSON.stringify({ prefs: prefs }),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function () { console.log("successfully posted back prefs") }
+            });
+        }, 1000);
+        
+    })();
+    @code
+        End if
+    End Code
+
 </script>
 
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->

@@ -13,5 +13,7 @@ Public Class MvcApplication
         FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters)
         RouteConfig.RegisterRoutes(RouteTable.Routes)
         BundleConfig.RegisterBundles(BundleTable.Bundles)
+
+        ValueProviderFactories.Factories.Add(New JsonValueProviderFactory())
     End Sub
 End Class
