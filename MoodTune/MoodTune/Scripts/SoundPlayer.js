@@ -28,3 +28,14 @@ function playSongsByMood(name) {
 function playSoundCloudAudio(obj) {
     console.log(obj)
 }
+  (function(){
+    var widgetIframe = document.getElementById('sc-widget'),
+        widget       = SC.Widget(widgetIframe);
+
+    widget.bind(SC.Widget.Events.READY, function() {
+      widget.bind(SC.Widget.Events.FINISH, function() {
+        console.log("FINISH");
+        });
+      });
+      });
+
