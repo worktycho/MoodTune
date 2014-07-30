@@ -40,7 +40,7 @@ End Code
 
     function skipTrack() {
         var widget = SC.Widget("sc-widget")
-        // IncrementSkip(name);
+        widget.getCurrentSound(function (sound) { skipAnalyse(sound.title) })
         getNextTrack(getRandomMood(), function (tracks) { widget.load(GetSoundCloudURL(tracks[0])) });
     }
 
