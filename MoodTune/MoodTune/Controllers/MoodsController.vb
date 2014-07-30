@@ -17,7 +17,7 @@ Namespace MoodTune
             Dim cache = HttpRuntime.Cache
             Dim cachedmood As String = CStr(cache("Moods." & moodname))
             If cachedmood Is Nothing Then
-                Dim origsongs = (Await LastFMTagFetcher.GetSongs(moodname)).Take(10).ToList()
+                Dim origsongs = (Await LastFMTagFetcher.GetSongs(moodname)).Take(1).ToList()
                 Dim awaitarray As New List(Of Threading.Tasks.Task(Of String))
 
                 For i = 0 To origsongs.Count - 1

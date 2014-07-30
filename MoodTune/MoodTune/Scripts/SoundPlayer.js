@@ -1,9 +1,10 @@
 ﻿function playAudio(mood) {
     getSongsByMood(mood, function (tracks) {
+        console.log("1");
         var frame = document.createElement("iframe");
         frame.id = "sc-widget";
-        frame.src = "https://w.soundcloud.com/player/?url=" + GetSoundCloudURL(tracks[0]);
         $('body')[0].appendChild(frame);
+        frame.src = "https://w.soundcloud.com/player/?auto_play=true&url=" + GetSoundCloudURL(tracks[0]);
     });
 }
 
