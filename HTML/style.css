@@ -1,0 +1,123 @@
+.tag
+{
+	width: 2px;
+	height: 1px;
+	border-radius: 3px;
+ 	/*background-color: rgb(215, 215, 215);*/
+ 	background-image: url("assets/placeholder.gif");
+ 	background-size: contain;
+ 	border-color: rgb(200, 200, 200);
+    margin: 10px;
+    box-shadow: inset 0 0 0 transparent;
+ 	display: inline-block;
+    transition: all 0.5s linear;
+    position: relative;
+    background-repeat: no-repeat;
+}
+
+h1
+{
+	/*background-color: #B20000;*/
+	background-color: black;
+	width:100%;
+	padding: 5px;
+	color:white;
+	font-family: 'Francois One',Arial;
+	
+}
+.rndbtn
+{
+	border-radius: 3px;
+	background-color: black;
+	font-family: 'Oxygen',Arial;
+	color:white;
+	font-size: 30pt;
+}
+.tag:hover
+{
+
+	box-shadow: inset 7.5px 12.99px 1px 0px rgba(0, 0, 0, 0.294);
+
+}
+
+.tag:active
+{
+	background-color: rgba(0, 0, 0, 0.5);
+}
+span
+{
+	border-radius: 3px;
+	padding: 1px;
+	padding-left: 4px;
+	padding-right: 4px;
+	position: absolute;
+	background-color: black;
+   	text-align: right;
+   	bottom: 2%;
+   	right: 1%;
+   	opacity: 0.4;
+	font-family: 'Francois One',Arial;
+	color:white;
+	font-size: 100%;
+    transition: opacity 0.5s linear;
+    transition: font-size 0.1s linear;
+
+
+
+	/*background-image: url("assets/stripe.png");
+	background-repeat: always;*/
+}
+span.selected 
+{
+	background-color: green;
+	opacity: 0.8;
+	font-size: 1.1em;
+}
+span:hover
+{
+	opacity: 1;
+
+}
+
+.tag:before,.tag:after
+{
+	content: " ";
+	display: table;
+}
+.tags
+{
+	max-width: 972px;
+	max-height: 972px;
+}
+.console
+{
+	-moz-box-shadow:    inset 0 0 10px #000000;
+	-webkit-box-shadow: inset 0 0 10px #000000;
+	box-shadow:         inset 0 0 10px #000000;
+ 	background-color: rgb(215, 215, 215);
+ 	max-height: 10%;
+ 	width:100%;
+ 	padding: 5px;
+ 	font-family: menlo;
+ 	
+}
+.cnscnt
+{
+	background-color: #FFFFCC;
+	display: inline-block;
+	padding: 1px;
+}
+input[type=checkbox] {
+	visibility: hidden;
+}
+.checkbox
+{
+	background-image: url("assets/unsel.png");
+	background-color: green;
+}
+
+.checkbox:checked
+{
+	background-image: url("assets/sel.png");
+	background-color: black;
+}
