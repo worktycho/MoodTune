@@ -111,11 +111,7 @@ End Code
 </script>
 
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->
-<<<<<<< HEAD
-<!--<img src="@(Url.Content("~/Content/assets/largelogo.png"))" style="width:199px;height:266px;position:absolute;right:10%;top:20%">-->
-=======
-<!--<img src= style="width:199px;height:266px">-->
->>>>>>> FETCH_HEAD
+<img src="@(Url.Content("~/Content/assets/largelogo.png"))" style="width:199px;height:266px;position:absolute;right:10%;top:20%">
 
 <ul class="instructions">
     <li>1. Choose 1 or more moods.</li>
