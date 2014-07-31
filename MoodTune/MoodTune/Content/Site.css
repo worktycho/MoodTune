@@ -64,9 +64,32 @@ textarea {
 
 /* Custom CSS*/
 
+.instructions
+{
+    border-radius: 10px;
+    border: 2px dashed #333;
+    background-color: #222;
+    color:white;
+    font-family: 'Oxygen', Arial;
+    margin-bottom: 20px;
+    clear:both;
+    display:block;
+    overflow:hidden;
+}
+.instructions li{
+    padding:4px;
+}
+.tags {
+    max-width: 972px;
+    /*max-height: 972px;*/
+    margin-bottom: 24px;
+    clear: both;
+    overflow:hidden;
+}
 .tag {
     width: 30%;
-    height: 100px;
+    height: auto;
+    min-height:100px;
     border-radius: 3px;
     background-color: rgb(215, 215, 215);
     border-color: rgb(200, 200, 200);
@@ -76,25 +99,10 @@ textarea {
     transition: all 0.5s linear;
     position: relative;
 }
-
-h1 {
-    background-color: black;
-    width: 100%;
-    padding: 5px;
-    color: white;
-    font-family: 'Francois One', Arial;
+.tag:before, .tag:after {
+    content: " ";
+    display: table;
 }
-
-
-.rndbtn {
-    border-radius: 3px;
-    background-color: black;
-    font-family: 'Oxygen', Arial;
-    color: white;
-    font-size: 30pt;
-}
-
-
 .tag:hover {
     box-shadow: inset 7.5px 12.99px 1px 0px rgba(0, 0, 0, 0.294);
 }
@@ -115,6 +123,26 @@ h1 {
     width: 100%;
 
 }
+
+h1 {
+    background-color: black;
+    width: 100%;
+    padding: 5px;
+    color: white;
+    font-family: 'Francois One', Arial;
+}
+
+
+.rndbtn {
+    border-radius: 3px;
+    background-color: black;
+    font-family: 'Oxygen', Arial;
+    color: white;
+    font-size: 30pt;
+}
+
+
+
 span {
     z-index: 2;
 
@@ -150,17 +178,9 @@ span {
     }
 
 
-.tag:before, .tag:after {
-    content: " ";
-    display: table;
-}
 
-.tags {
-    max-width: 972px;
-    max-height: 972px;
-    margin-bottom: 24px;
-    clear: both;s
-}
+
+
 
 
 .cnscnt {
