@@ -96,17 +96,17 @@ End Code
 
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->
 <div class="tags">
-    <article class="tag" onclick="tagSelect('Happy');"><img src="/icons/happy.gif"><span id="Happy">Happy</span></article>
-    <article class="tag" onclick="tagSelect('sad');"><img src="/icons/sad.gif"><span id="sad">Sad</span></article>
-    <article class="tag" onclick="tagSelect('Dramatic');"><img src="/icons/dramatic.gif"><span id="Dramatic">Dramatic</span></article>
+    <article class="tag" onclick="tagSelect('Happy');"><img src="@(Url.Content("~/Content/icons/happy.gif"))"><span id="Happy">Happy</span></article>
+    <article class="tag" onclick="tagSelect('sad');"><img src="@(Url.Content("~/Content/icons/sad.gif"))"><span id="sad">Sad</span></article>
+    <article class="tag" onclick="tagSelect('Dramatic');"><img src="@(Url.Content("~/Content/icons/dramatic.gif"))"><span id="Dramatic">Dramatic</span></article>
 
-    <article class="tag" onclick="tagSelect('Inspirational');"><img src="/icons/inspirational.gif"><span id="Inspirational">Inspirational</span></article>
-    <article class="tag" onclick="tagSelect('Melancholic');"><img src="/icons/melancholic.gif"><span id="Melancholic">Melancholic</span></article>
-    <article class="tag" onclick="tagSelect('Angry');"><img src="/icons/angry.gif"><span id="Angry">Angry</span></article>
+    <article class="tag" onclick="tagSelect('Inspirational');"><img src="@(Url.Content("~/Content/icons/inspirational.gif"))"><span id="Inspirational">Inspirational</span></article>
+    <article class="tag" onclick="tagSelect('Melancholic');"><img src="@(Url.Content("~/Content/icons/melancholic.gif"))"><span id="Melancholic">Melancholic</span></article>
+    <article class="tag" onclick="tagSelect('Angry');"><img src="@(Url.Content("~/Content/icons/angry.gif"))"><span id="Angry">Angry</span></article>
 
-    <article class="tag" onclick="tagSelect('Calm');"><img src="/icons/calm.gif"><span id="Calm">Calm</span></article>
-    <article class="tag" onclick="tagSelect('exited');"><img src="/icons/exited.gif"><span id="exited">Exited</span></article>
-    <article class="tag" onclick="tagSelect('nervous');"><img src="/icons/nervous.gif"><span id="nervous">Nervous</span></article>
+    <article class="tag" onclick="tagSelect('Calm');"><img src="@(Url.Content("~/Content/icons/calm.gif"))"><span id="Calm">Calm</span></article>
+    <article class="tag" onclick="tagSelect('exited');"><img src="@(Url.Content("~/Content/icons/excited.gif"))"><span id="exited">Exited</span></article>
+    <article class="tag" onclick="tagSelect('nervous');"><img src="@(Url.Content("~/Content/icons/nervous.gif"))"><span id="nervous">Nervous</span></article>
 
 </div>
 <input type="button" class="rndbtn" onclick="randomise()" value="Randomise">
