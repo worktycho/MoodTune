@@ -40,12 +40,7 @@ textarea {
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-body
-{
-    background-image: Url("http://moodtune.azurewebsites.net/Content/largelogo.png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
+
 .field-validation-error {
     color: #f00;
 }
