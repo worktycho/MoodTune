@@ -84,10 +84,12 @@ textarea {
     /*max-height: 972px;*/
     margin-bottom: 24px;
     clear: both;
+    overflow:hidden;
 }
 .tag {
     width: 30%;
     height: auto;
+    min-height:100px;
     border-radius: 3px;
     background-color: rgb(215, 215, 215);
     border-color: rgb(200, 200, 200);
