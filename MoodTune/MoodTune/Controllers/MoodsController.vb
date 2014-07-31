@@ -26,8 +26,9 @@ Namespace MoodTune
             Dim rand = random.Next(10)
             For Each SongTask In songs
                 Dim Song = Await SongTask
-                If (SkipInfo.ContainsKey(Song.Name)) Then
-                    Dim songInfo = SkipInfo(Song.Name)
+                Dim SongTitle = SoundCloudMapper.TryGetSoundCloudTitle(Song.Name)
+                If (SongTitle IsNot Nothing AndAlso SkipInfo.ContainsKey("SONGDATA_" & SongTitle)) Then
+                    Dim songInfo = SkipInfo("SONGDATA_" & SongTitle)
                     If songInfo.skiped > 5 Then Continue For
                     If songInfo.ListenedRecently > 1 Then Continue For
                 End If
