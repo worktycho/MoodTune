@@ -40,6 +40,12 @@ textarea {
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
+body
+{
+    background-image: @(Url.Content("~/Content/assets/largelogo.png"));
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 .field-validation-error {
     color: #f00;
 }
