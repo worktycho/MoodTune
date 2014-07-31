@@ -8,7 +8,7 @@
         widget.bind(SC.Widget.Events.READY, function() {
             widget.bind(SC.Widget.Events.FINISH, function () {
                 console.log("FINISH");
-                onfinish();
+                onFinish();
         });});});
 }
 
@@ -31,10 +31,6 @@ function playSongsByMood(name) {
         console.log("callback")
         playSoundCloudAudio(data[0]);
     });
-}
-
-function playSoundCloudAudio(obj) {
-    console.log(obj)
 }
 
 

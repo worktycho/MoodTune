@@ -30,7 +30,15 @@ End Code
     function StartPlaying() {
         if (playing) console.log("Already started playing");
         playing = true;
-        playAudio(getRandomMood(), function () { console.log("play next track"); });
+        playAudio(
+            getRandomMood(), 
+            function () { 
+                getNextTrack(
+                    getRandomMood(),
+                    function (tracks) {
+                        widget.load(GetSoundCloudURL(tracks[0]), { auto_play: true })
+                    });
+            });
     }
 
     function IsPlaying() {
@@ -49,7 +57,7 @@ End Code
     function skipTrack() {
         var widget = SC.Widget("sc-widget")
         widget.getCurrentSound(function (sound) { skipAnalyse(sound.title) })
-        getNextTrack(getRandomMood(), function (tracks) { widget.load(GetSoundCloudURL(tracks[0])) });
+        getNextTrack(getRandomMood(), function (tracks) { widget.load(GetSoundCloudURL(tracks[0]), { auto_play: true }) });
     }
 
     @code
