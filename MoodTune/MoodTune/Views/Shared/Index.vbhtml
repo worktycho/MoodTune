@@ -8,6 +8,7 @@ End Code
 
     function tagSelect(type) {
         selected[type] = !selected[type];
+        if (!IsPlaying()) StartPlaying();
         console.log("Type '" + type + "' selected! State active = " + selected[type]);
         updateSel(type);
     }
@@ -22,12 +23,31 @@ End Code
         var type;
         for (type in selected) selected[type] = [true, false][Math.round(Math.random())];
         updateSel(null);
+        if (!IsPlaying) StartPlaying();
     }
-    function updatePlayAudio() {
-        console.log("UnImplemented")
+
+    var playing = false;
+    function StartPlaying() {
+        if (playing) console.log("Already started playing");
+        playing = true;
+        playAudio(
+            getRandomMood(), 
+            function () {
+                var widget = SC.Widget("sc-widget")
+                widget.getCurrentSound(function (sound) {
+                    console.log("finished listening to " &sound);
+                    ListenedAnalyse(sound.title)
+                });
+                getNextTrack(
+                    getRandomMood(),
+                    function (tracks) {
+                        widget.load(GetSoundCloudURL(tracks[0]), { auto_play: true })
+                    });
+            });
     }
-    function localData(key, value) {
-        localStorage.setItem(key, value);
+
+    function IsPlaying() {
+        return playing;
     }
 
     function getRandomMood() {
@@ -35,30 +55,59 @@ End Code
         for (key in selected) {
             if (selected[key]) onlyselected.push(key);
         }
-        return onlyselected[Math.random() * onlyselected.length];
+        var MoodId = Math.round(Math.random() * (onlyselected.length - 1));
+        return onlyselected[MoodId];
     }
 
     function skipTrack() {
         var widget = SC.Widget("sc-widget")
         widget.getCurrentSound(function (sound) { skipAnalyse(sound.title) })
-        getNextTrack(getRandomMood(), function (tracks) { widget.load(GetSoundCloudURL(tracks[0])) });
+        getNextTrack(getRandomMood(), function (tracks) { widget.load(GetSoundCloudURL(tracks[0]), { auto_play: true }) });
     }
+
+    @code
+        If Session("Song_prefs") Is Nothing Then
+    End Code
+    (function () {
+        setTimeout(function () {
+            prefs = {}
+            // TODO: Remove this loop
+            for (var i = 0; i < localStorage.length; i++) {
+                var key = localStorage.key(i);
+                if (key.indexOf("SONGDATA_") == 0) {
+                    prefs[key] = localStorage.getItem(key);
+                }
+            }
+            $.ajax({
+                url: '@(Url.Action("SetLearnedPrefs"))',
+                type: 'POST',
+                data: JSON.stringify({ prefs: prefs }),
+                contentType: 'application/json; charset=utf-8',
+                success: function () { console.log("successfully posted back prefs") }
+            });
+        }, 1000);
+        
+    })();
+    @code
+        End if
+    End Code
 
 </script>
 
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->
 <div class="tags">
-    <article class="tag" onclick="playAudio('Happy');tagSelect('Happy');"><img src="/icons/happy.gif"><span id="Happy">Happy</span></article>
-    <article class="tag" onclick="playAudio('sad');tagSelect('sad');"><img src="/icons/sad.gif"><span id="sad">Sad</span></article>
-    <article class="tag" onclick="playAudio('Dramatic');tagSelect('Dramatic');"><img src="/icons/dramatic.gif"><span id="Dramatic">Dramatic</span></article>
+    <article class="tag" onclick="tagSelect('Happy');"><img src="/icons/happy.gif"><span id="Happy">Happy</span></article>
+    <article class="tag" onclick="tagSelect('sad');"><img src="/icons/sad.gif"><span id="sad">Sad</span></article>
+    <article class="tag" onclick="tagSelect('Dramatic');"><img src="/icons/dramatic.gif"><span id="Dramatic">Dramatic</span></article>
 
-    <article class="tag" onclick="playAudio('Inspirational');tagSelect('Inspirational');"><img src="/icons/inspirational.gif"><span id="Inspirational">Inspirational</span></article>
-    <article class="tag" onclick="playAudio('Melancholic');tagSelect('Melancholic');"><img src="/icons/melancholic.gif"><span id="Melancholic">Melancholic</span></article>
-    <article class="tag" onclick="playAudio('Angry');tagSelect('Angry');"><img src="/icons/angry.gif"><span id="Angry">Angry</span></article>
+    <article class="tag" onclick="tagSelect('Inspirational');"><img src="/icons/inspirational.gif"><span id="Inspirational">Inspirational</span></article>
+    <article class="tag" onclick="tagSelect('Melancholic');"><img src="/icons/melancholic.gif"><span id="Melancholic">Melancholic</span></article>
+    <article class="tag" onclick="tagSelect('Angry');"><img src="/icons/angry.gif"><span id="Angry">Angry</span></article>
 
-    <article class="tag" onclick="playAudio('Calm');tagSelect('Calm');"><img src="/icons/calm.gif"><span id="Calm">Calm</span></article>
-    <article class="tag" onclick="playAudio('exited');tagSelect('exited');"><img src="/icons/exited.gif"><span id="exited">Exited</span></article>
-    <article class="tag" onclick="playAudio('nervous');tagSelect('nervous');"><img src="/icons/nervous.gif"><span id="nervous">Nervous</span></article>
+    <article class="tag" onclick="tagSelect('Calm');"><img src="/icons/calm.gif"><span id="Calm">Calm</span></article>
+    <article class="tag" onclick="tagSelect('exited');"><img src="/icons/exited.gif"><span id="exited">Exited</span></article>
+    <article class="tag" onclick="tagSelect('nervous');"><img src="/icons/nervous.gif"><span id="nervous">Nervous</span></article>
+
 </div>
 <input type="button" class="rndbtn" onclick="randomise()" value="Randomise">
 <input type="button" class="rndbtn" onclick="skipTrack()" value="SkipTrack" ><br>

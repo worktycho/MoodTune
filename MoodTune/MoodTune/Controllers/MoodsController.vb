@@ -2,6 +2,7 @@
 Option Strict On
 
 Imports Newtonsoft.Json
+Imports System.Threading.Tasks
 
 Namespace MoodTune
     Public Class MoodsController
@@ -15,26 +16,33 @@ Namespace MoodTune
             Dim moodname As String = CStr(RouteData.Values("MoodName"))
 
             Dim cache = HttpRuntime.Cache
-            Dim cachedmood As String = CStr(cache("Moods." & moodname))
-            If cachedmood Is Nothing Then
-                Dim origsongs = (Await LastFMTagFetcher.GetSongs(moodname)).Take(1).ToList()
-                Dim awaitarray As New List(Of Threading.Tasks.Task(Of String))
 
-                For i = 0 To origsongs.Count - 1
-                    awaitarray.Add(SoundCloudMapper.GetEmbedId(origsongs(i).Name))
-                Next
+            Dim random As New Random
+            Dim songs = LastFMTagFetcher.GetSongs(moodname)
 
-                For i = 0 To origsongs.Count - 1
-                    origsongs(i).Link = Await awaitarray(i)
-                Next
-                Dim songsJSON = JsonConvert.SerializeObject(origsongs)
-                cachedmood = songsJSON
-                cache("Moods." & moodname) = cachedmood
-            End If
+            Dim SkipInfo As Dictionary(Of String, Integer) = DirectCast(Session("song_perfs"), Dictionary(Of String, Integer))
+            If SkipInfo Is Nothing Then SkipInfo = New Dictionary(Of String, Integer)
+            Dim chosenSongs As IEnumerable(Of Song)
+            For Each SongTask In songs
+                Dim Song = Await SongTask
+                If (SkipInfo.ContainsKey(Song.Name) AndAlso SkipInfo(Song.Name) > 5) Then Continue For
+                    Dim templist = New List(Of Song)
+                    templist.Add(Song)
+                    chosenSongs = templist
+                    Exit For
+            Next
+
+            For Each Song In chosenSongs
+                Song.Link = Await SoundCloudMapper.GetEmbedId(Song.Name)
+            Next
+
+            Dim chosenSongsJSON As String = JsonConvert.SerializeObject(chosenSongs)
             Dim result As New ContentResult
-            result.Content = cachedmood
+            result.Content = chosenSongsJSON
             Return result
         End Function
+
+
 
     End Class
 End Namespace
