@@ -73,7 +73,7 @@ textarea {
     font-family: 'Oxygen', Arial;
     margin-bottom: 20px;
     clear:both;
-    display:both;
+    display:block;
 }
 .instructions li{
     padding:4px;
