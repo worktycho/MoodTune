@@ -42,7 +42,7 @@ textarea {
 -----------------------------------------------------------*/
 body
 {
-    background-image: Url("http://moodtune.azurewebsites.net/Content/assets/largelogo.png");
+    background-image: Url("http://moodtune.azurewebsites.net/Content/largelogo.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
