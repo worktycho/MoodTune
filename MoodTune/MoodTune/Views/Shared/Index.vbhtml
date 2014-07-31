@@ -3,7 +3,7 @@
 End Code
 
 <script type="text/javascript">
-    var selected = { Happy: false, sad: false, Dramatic: false, Inspirational: false, Melancholic: false, Angry: false, Calm: false, exited: false, nervous: false };
+    var selected = { Happy: false, sad: false, Dramatic: false, Inspirational: false, Melancholic: false, Angry: false, Calm: false, Excited: false, nervous: false };
     var audio;
 
     function tagSelect(type) {
@@ -22,6 +22,7 @@ End Code
     function randomise() {
         var type;
         for (type in selected) selected[type] = [true, false][Math.round(Math.random())];
+        if (!IsPlaying()) StartPlaying();
         updateSel(null);
         if (!IsPlaying) StartPlaying();
     }
@@ -65,11 +66,11 @@ End Code
         getNextTrack(getRandomMood(), function (tracks) { widget.load(GetSoundCloudURL(tracks[0]), { auto_play: true }) });
     }
 
-    @code
-        If Session("Song_prefs") Is Nothing Then
-    End Code
     (function () {
         setTimeout(function () {
+            @code
+        If Session("Song_prefs") Is Nothing Then
+    End Code
             prefs = {}
             // TODO: Remove this loop
             for (var i = 0; i < localStorage.length; i++) {
@@ -85,12 +86,16 @@ End Code
                 contentType: 'application/json; charset=utf-8',
                 success: function () { console.log("successfully posted back prefs") }
             });
-        }, 1000);
-        
-    })();
+
     @code
         End if
     End Code
+            UpdateCallback = function () {
+               
+            }
+        }, 1000);
+        
+    })();
 
 </script>
 
@@ -105,7 +110,7 @@ End Code
     <article class="tag" onclick="tagSelect('Angry');"><img src="@(Url.Content("~/Content/icons/angry.gif"))"><span id="Angry">Angry</span></article>
 
     <article class="tag" onclick="tagSelect('Calm');"><img src="@(Url.Content("~/Content/icons/calm.gif"))"><span id="Calm">Calm</span></article>
-    <article class="tag" onclick="tagSelect('exited');"><img src="@(Url.Content("~/Content/icons/excited.gif"))"><span id="exited">Excited</span></article>
+    <article class="tag" onclick="tagSelect('excited');"><img src="@(Url.Content("~/Content/icons/excited.gif"))"><span id="excited">Excited</span></article>
     <article class="tag" onclick="tagSelect('nervous');"><img src="@(Url.Content("~/Content/icons/nervous.gif"))"><span id="nervous">Nervous</span></article>
 
 </div>

@@ -1,5 +1,5 @@
 
-
+var UpdateCallback;
 
 function skipAnalyse(nametrack)
 {

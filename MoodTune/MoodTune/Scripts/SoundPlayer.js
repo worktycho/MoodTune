@@ -22,7 +22,7 @@ function getSongsByMood(name, callback) {
     $.ajax("/Moods/" + name, {
         cache: false,
         success: function (resp) { var data = JSON.parse(resp); callback(data) },
-        error: function () {console.log("error");}
+        error: function (_, msg) {console.log("error " & msg);}
     });
 }
 

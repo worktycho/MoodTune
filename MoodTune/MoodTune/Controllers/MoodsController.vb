@@ -20,13 +20,17 @@ Namespace MoodTune
             Dim random As New Random
             Dim songs = LastFMTagFetcher.GetSongs(moodname)
 
-            Dim SkipInfo As Dictionary(Of String, Integer) = DirectCast(Session("song_perfs"), Dictionary(Of String, Integer))
-            If SkipInfo Is Nothing Then SkipInfo = New Dictionary(Of String, Integer)
+            Dim SkipInfo = DirectCast(Session("song_perfs"), Dictionary(Of String, SongInfo))
+            If SkipInfo Is Nothing Then SkipInfo = New Dictionary(Of String, SongInfo)
             Dim chosenSongs As IEnumerable(Of Song)
             Dim rand = random.Next(10)
             For Each SongTask In songs
                 Dim Song = Await SongTask
-                If (SkipInfo.ContainsKey(Song.Name) AndAlso SkipInfo(Song.Name) > 5) Then Continue For
+                If (SkipInfo.ContainsKey(Song.Name)) Then
+                    Dim songInfo = SkipInfo(Song.Name)
+                    If songInfo.skiped > 5 Then Continue For
+                    If songInfo.ListenedRecently > 1 Then Continue For
+                End If
                 If rand <> 0 Then
                     rand -= 1
                     Continue For

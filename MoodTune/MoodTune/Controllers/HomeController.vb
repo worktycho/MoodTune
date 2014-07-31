@@ -12,7 +12,7 @@
         ' Post: /SetLearnedPrefs
 
         <HttpPost()>
-        Function SetLearnedPrefs(prefs As Dictionary(Of String, Integer)) As ActionResult
+        Function SetLearnedPrefs(prefs As Dictionary(Of String, SongInfo)) As ActionResult
             Session("song_perfs") = prefs
             Dim res = New ContentResult()
             Return res

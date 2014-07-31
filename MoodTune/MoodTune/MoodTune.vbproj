@@ -167,6 +167,7 @@
     </Compile>
     <Compile Include="Models\LastFMTagFetcher.vb" />
     <Compile Include="Models\Song.vb" />
+    <Compile Include="Models\SongInfo.vb" />
     <Compile Include="Models\SoundCloudMapper.vb" />
     <Compile Include="Models\YoutubeMapper.vb">
       <DependentUpon>YouTubeMapper.xsd</DependentUpon>
