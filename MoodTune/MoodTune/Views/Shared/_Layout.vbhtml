@@ -14,6 +14,7 @@
     <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 </head>
 <body>
+    <img src="@(Url.Content("~/Content/logolarge.png"))">
     @RenderBody()
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required:=False)
