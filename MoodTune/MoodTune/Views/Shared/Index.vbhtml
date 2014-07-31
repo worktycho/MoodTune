@@ -95,6 +95,8 @@ End Code
 </script>
 
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->
+<img src="@(Url.Content("~/Content/assets/logolarge.png"))">
+<div class="instructions">1. Choose 1 or more moods.<br>2. Wait a few seconds for the song to load.<br>================<br>Enjoy listening to a variety of music from the selected catagory!</div>
 <div class="tags">
     <article class="tag" onclick="tagSelect('Happy');"><img src="@(Url.Content("~/Content/icons/happy.gif"))"><span id="Happy">Happy</span></article>
     <article class="tag" onclick="tagSelect('sad');"><img src="@(Url.Content("~/Content/icons/sad.gif"))"><span id="sad">Sad</span></article>
