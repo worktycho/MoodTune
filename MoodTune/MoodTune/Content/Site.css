@@ -103,8 +103,20 @@ h1 {
 .tag:active {
     background-color: rgba(0, 0, 0, 0.5);
 }
-
+.tag img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    /*border-radius: 3px;*/
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+}
 span {
+    z-index: 2;
+
     border-radius: 3px;
     padding: 1px;
     padding-left: 4px;
