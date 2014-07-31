@@ -16,11 +16,25 @@ Public Class SoundCloudMapper
         Dim tracks = Await response.Content().ReadAsStringAsync
 
         Dim XML = XDocument.Parse(tracks)
-
-        Dim trackid = XML.<tracks>.<track>.First().<id>.First().Value
+        Dim track = XML.<tracks>.<track>.First()
+        Dim trackid = track.<id>.First().Value
+        Dim trackTitle = track.<title>.First().Value
         cache("SoundCloudID." & name) = trackid
+        cache("SoundCloudTitle." & name) = trackTitle
 
         Debug.WriteLine("Cache store at SoundCloudID :" & name)
         Return trackid
     End Function
+
+    Shared Function TryGetSoundCloudTitle(Name As String) As String
+        Dim cache = HttpRuntime.Cache
+        If cache("SoundCloudTitle." & Name) IsNot Nothing Then
+            Debug.WriteLine("Cache Hit at SoundCloudTitle:" & Name)
+            Return CStr(cache("SoundCloudTitle." & Name))
+        End If
+
+        Debug.WriteLine("Cache miss at SoundCloudTitle :" & Name)
+        Return Nothing
+    End Function
+
 End Class

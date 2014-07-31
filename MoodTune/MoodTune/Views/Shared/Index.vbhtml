@@ -32,18 +32,18 @@ End Code
         if (playing) console.log("Already started playing");
         playing = true;
         playAudio(
-            getRandomMood(), 
+            getRandomMood(),
             function () {
                 var widget = SC.Widget("sc-widget")
                 widget.getCurrentSound(function (sound) {
-                    console.log("finished listening to " &sound);
+                    console.log("finished listening to " & sound);
                     ListenedAnalyse(sound.title)
+                    getNextTrack(
+                        getRandomMood(),
+                        function (tracks) {
+                            widget.load(GetSoundCloudURL(tracks[0]), { auto_play: true })
+                        });
                 });
-                getNextTrack(
-                    getRandomMood(),
-                    function (tracks) {
-                        widget.load(GetSoundCloudURL(tracks[0]), { auto_play: true })
-                    });
             });
     }
 
@@ -62,45 +62,60 @@ End Code
 
     function skipTrack() {
         var widget = SC.Widget("sc-widget")
-        widget.getCurrentSound(function (sound) { skipAnalyse(sound.title) })
-        getNextTrack(getRandomMood(), function (tracks) { widget.load(GetSoundCloudURL(tracks[0]), { auto_play: true }) });
+        widget.getCurrentSound(
+            function (sound) {
+                skipAnalyse(sound.title)
+                getNextTrack(getRandomMood(),
+                    function (tracks) {
+                        widget.load(GetSoundCloudURL(tracks[0]), { auto_play: true })
+                    });
+            });
     }
 
     (function () {
         setTimeout(function () {
             @code
-        If Session("Song_prefs") Is Nothing Then
+                If Session("Song_prefs") Is Nothing Then
     End Code
-            prefs = {}
+            var prefs = {}
             // TODO: Remove this loop
             for (var i = 0; i < localStorage.length; i++) {
                 var key = localStorage.key(i);
                 if (key.indexOf("SONGDATA_") == 0) {
-                    prefs[key] = localStorage.getItem(key);
+                    var item = localStorage.getItem(key)
+                    if (item == "[object Object]") {
+                        item = { skiped: 0, played: 0 }
+                    } else {
+                        item = JSON.parse(item);
+                    }
+                    prefs[key] = item;
                 }
             }
             $.ajax({
                 url: '@(Url.Action("SetLearnedPrefs"))',
                 type: 'POST',
-                data: JSON.stringify({ prefs: prefs }),
-                contentType: 'application/json; charset=utf-8',
+                data: { prefsJSON: JSON.stringify({ prefs: prefs }) },
                 success: function () { console.log("successfully posted back prefs") }
             });
 
     @code
-        End if
+        End If
     End Code
             UpdateCallback = function () {
-               
+
             }
         }, 1000);
-        
+
     })();
 
 </script>
 
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->
+<<<<<<< HEAD
 <!--<img src="@(Url.Content("~/Content/assets/largelogo.png"))" style="width:199px;height:266px;position:absolute;right:10%;top:20%">-->
+=======
+<!--<img src= style="width:199px;height:266px">-->
+>>>>>>> FETCH_HEAD
 
 <ul class="instructions">
     <li>1. Choose 1 or more moods.</li>
@@ -109,21 +124,30 @@ End Code
     <li>Enjoy listening to a variety of music from the selected catagory!</li>
 </ul>
 <div class="tags">
-    <article class="tag" onclick="tagSelect('Happy');"><img src="@(Url.Content("~/Content/icons/happy.gif"))"><span id="Happy">Happy</span></article>
-    <article class="tag" onclick="tagSelect('sad');"><img src="@(Url.Content("~/Content/icons/sad.gif"))"><span id="sad">Sad</span></article>
-    <article class="tag" onclick="tagSelect('Dramatic');"><img src="@(Url.Content("~/Content/icons/dramatic.gif"))"><span id="Dramatic">Dramatic</span></article>
+    <article class="tag" onclick="tagSelect('Happy');">
+        <img src="@(Url.Content("~/Content/icons/happy.gif"))"><span id="Happy">Happy</span></article>
+    <article class="tag" onclick="tagSelect('sad');">
+        <img src="@(Url.Content("~/Content/icons/sad.gif"))"><span id="sad">Sad</span></article>
+    <article class="tag" onclick="tagSelect('Dramatic');">
+        <img src="@(Url.Content("~/Content/icons/dramatic.gif"))"><span id="Dramatic">Dramatic</span></article>
 
-    <article class="tag" onclick="tagSelect('Inspirational');"><img src="@(Url.Content("~/Content/icons/inspirational.gif"))"><span id="Inspirational">Inspirational</span></article>
-    <article class="tag" onclick="tagSelect('Melancholic');"><img src="@(Url.Content("~/Content/icons/melancholic.gif"))"><span id="Melancholic">Melancholic</span></article>
-    <article class="tag" onclick="tagSelect('Angry');"><img src="@(Url.Content("~/Content/icons/angry.gif"))"><span id="Angry">Angry</span></article>
+    <article class="tag" onclick="tagSelect('Inspirational');">
+        <img src="@(Url.Content("~/Content/icons/inspirational.gif"))"><span id="Inspirational">Inspirational</span></article>
+    <article class="tag" onclick="tagSelect('Melancholic');">
+        <img src="@(Url.Content("~/Content/icons/melancholic.gif"))"><span id="Melancholic">Melancholic</span></article>
+    <article class="tag" onclick="tagSelect('Angry');">
+        <img src="@(Url.Content("~/Content/icons/angry.gif"))"><span id="Angry">Angry</span></article>
 
-    <article class="tag" onclick="tagSelect('Calm');"><img src="@(Url.Content("~/Content/icons/calm.gif"))"><span id="Calm">Calm</span></article>
-    <article class="tag" onclick="tagSelect('excited');"><img src="@(Url.Content("~/Content/icons/excited.gif"))"><span id="excited">Excited</span></article>
-    <article class="tag" onclick="tagSelect('nervous');"><img src="@(Url.Content("~/Content/icons/nervous.gif"))"><span id="nervous">Nervous</span></article>
+    <article class="tag" onclick="tagSelect('Calm');">
+        <img src="@(Url.Content("~/Content/icons/calm.gif"))"><span id="Calm">Calm</span></article>
+    <article class="tag" onclick="tagSelect('excited');">
+        <img src="@(Url.Content("~/Content/icons/excited.gif"))"><span id="excited">Excited</span></article>
+    <article class="tag" onclick="tagSelect('nervous');">
+        <img src="@(Url.Content("~/Content/icons/nervous.gif"))"><span id="nervous">Nervous</span></article>
 
 </div>
 <input type="button" class="rndbtn" onclick="randomise()" value="Randomise">
-<input type="button" class="rndbtn" onclick="skipTrack()" value="SkipTrack" ><br>
+<input type="button" class="rndbtn" onclick="skipTrack()" value="SkipTrack"><br>
 <!--<audio controls>
 	 <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.mp4"
 	         type='audio/mp4'>
