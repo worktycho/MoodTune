@@ -34,6 +34,7 @@ Public Class SoundCloudMapper
         End If
 
         Debug.WriteLine("Cache miss at SoundCloudTitle :" & Name)
+        Return Nothing
     End Function
 
 End Class
