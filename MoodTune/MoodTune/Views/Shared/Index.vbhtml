@@ -105,7 +105,7 @@ End Code
     <article class="tag" onclick="tagSelect('Angry');"><img src="@(Url.Content("~/Content/icons/angry.gif"))"><span id="Angry">Angry</span></article>
 
     <article class="tag" onclick="tagSelect('Calm');"><img src="@(Url.Content("~/Content/icons/calm.gif"))"><span id="Calm">Calm</span></article>
-    <article class="tag" onclick="tagSelect('exited');"><img src="@(Url.Content("~/Content/icons/excited.gif"))"><span id="exited">Exited</span></article>
+    <article class="tag" onclick="tagSelect('exited');"><img src="@(Url.Content("~/Content/icons/excited.gif"))"><span id="exited">Excited</span></article>
     <article class="tag" onclick="tagSelect('nervous');"><img src="@(Url.Content("~/Content/icons/nervous.gif"))"><span id="nervous">Nervous</span></article>
 
 </div>
