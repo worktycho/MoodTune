@@ -100,7 +100,6 @@ End Code
 </script>
 
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->
-<img src="@(Url.Content("~/Content/assets/largelogo.png"))" style="width:199px;height:266px;">
 <ul class="instructions">
     <li>1. Choose 1 or more moods.</li>
     <li>2. Wait a few seconds for the song to load.</li>

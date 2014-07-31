@@ -216,6 +216,7 @@
     <Content Include="Content\icons\melancholic.gif" />
     <Content Include="Content\icons\nervous.gif" />
     <Content Include="Content\icons\sad.gif" />
+    <Content Include="Content\logolarge.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
