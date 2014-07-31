@@ -72,6 +72,7 @@ textarea {
     color:white;
     font-family: 'Oxygen', Arial;
     margin-bottom: 20px;
+    clear:both;
 }
 
 .tag {
