@@ -8,6 +8,7 @@ End Code
 
     function tagSelect(type) {
         selected[type] = !selected[type];
+        if (!IsPlaying()) StartPlaying();
         console.log("Type '" + type + "' selected! State active = " + selected[type]);
         updateSel(type);
     }
@@ -22,12 +23,18 @@ End Code
         var type;
         for (type in selected) selected[type] = [true, false][Math.round(Math.random())];
         updateSel(null);
+        if (!IsPlaying) StartPlaying();
     }
-    function updatePlayAudio() {
-        console.log("UnImplemented")
+
+    var playing = false;
+    function StartPlaying() {
+        if (playing) console.log("Already started playing");
+        playing = true;
+        playAudio(getRandomMood(), function () { console.log("play next track"); });
     }
-    function localData(key, value) {
-        localStorage.setItem(key, value);
+
+    function IsPlaying() {
+        return playing;
     }
 
     function getRandomMood() {
@@ -35,7 +42,8 @@ End Code
         for (key in selected) {
             if (selected[key]) onlyselected.push(key);
         }
-        return onlyselected[Math.random() * onlyselected.length];
+        var MoodId = Math.round(Math.random() * (onlyselected.length - 1));
+        return onlyselected[MoodId];
     }
 
     function skipTrack() {
@@ -61,7 +69,6 @@ End Code
                 url: '@(Url.Action("SetLearnedPrefs"))',
                 type: 'POST',
                 data: JSON.stringify({ prefs: prefs }),
-                dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function () { console.log("successfully posted back prefs") }
             });
@@ -76,17 +83,17 @@ End Code
 
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->
 <div class="tags">
-    <article class="tag" onclick="playAudio('Happy');tagSelect('Happy');"><span id="Happy">Happy</span></article>
-    <article class="tag" onclick="playAudio('sad');tagSelect('sad');"><span id="sad">Sad</span></article>
-    <article class="tag" onclick="playAudio('Dramatic');tagSelect('Dramatic');"><span id="Dramatic">Dramatic</span></article>
+    <article class="tag" onclick="tagSelect('Happy');"><span id="Happy">Happy</span></article>
+    <article class="tag" onclick="tagSelect('sad');"><span id="sad">Sad</span></article>
+    <article class="tag" onclick="tagSelect('Dramatic');"><span id="Dramatic">Dramatic</span></article>
 
-    <article class="tag" onclick="playAudio('Inspirational');tagSelect('Inspirational');"><span id="Inspirational">Inspirational</span></article>
-    <article class="tag" onclick="playAudio('Melancholic');tagSelect('Melancholic');"><span id="Melancholic">Melancholic</span></article>
-    <article class="tag" onclick="playAudio('Angry');tagSelect('Angry');"><span id="Angry">Angry</span></article>
+    <article class="tag" onclick="tagSelect('Inspirational');"><span id="Inspirational">Inspirational</span></article>
+    <article class="tag" onclick="tagSelect('Melancholic');"><span id="Melancholic">Melancholic</span></article>
+    <article class="tag" onclick="tagSelect('Angry');"><span id="Angry">Angry</span></article>
 
-    <article class="tag" onclick="playAudio('Calm');tagSelect('Calm');"><span id="Calm">Calm</span></article>
-    <article class="tag" onclick="playAudio('exited');tagSelect('exited');"><span id="exited">Exited</span></article>
-    <article class="tag" onclick="playAudio('nervous');tagSelect('nervous');"><span id="nervous">Nervous</span></article>
+    <article class="tag" onclick="tagSelect('Calm');"><span id="Calm">Calm</span></article>
+    <article class="tag" onclick="tagSelect('exited');"><span id="exited">Exited</span></article>
+    <article class="tag" onclick="tagSelect('nervous');"><span id="nervous">Nervous</span></article>
 </div>
 <input type="button" class="rndbtn" onclick="randomise()" value="Randomise">
 <input type="button" class="rndbtn" onclick="skipTrack()" value="SkipTrack"><br>

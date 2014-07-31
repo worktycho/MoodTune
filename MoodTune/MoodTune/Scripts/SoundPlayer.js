@@ -1,4 +1,4 @@
-﻿function playAudio(mood) {
+﻿function playAudio(mood, onFinish) {
     getSongsByMood(mood, function (tracks) {
         var frame = document.createElement("iframe");
         frame.id = "sc-widget";
@@ -6,8 +6,9 @@
         frame.src = "https://w.soundcloud.com/player/?auto_play=true&url=" + GetSoundCloudURL(tracks[0]);
         widget       = SC.Widget(frame);
         widget.bind(SC.Widget.Events.READY, function() {
-        widget.bind(SC.Widget.Events.FINISH, function() {
-        console.log("FINISH");
+            widget.bind(SC.Widget.Events.FINISH, function () {
+                console.log("FINISH");
+                onfinish();
         });});});
 }
 
@@ -18,7 +19,11 @@ function GetSoundCloudURL(track) {
 
 function getSongsByMood(name, callback) {
     console.log(name)
-    var ajax = $.getJSON("/Moods/" + name, {}, callback);
+    $.ajax("/Moods/" + name, {
+        cache: false,
+        success: function (resp) { var data = JSON.parse(resp); callback(data) },
+        error: function () {console.log("error");}
+    });
 }
 
 function playSongsByMood(name) {

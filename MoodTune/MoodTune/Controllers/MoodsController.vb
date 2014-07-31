@@ -20,8 +20,8 @@ Namespace MoodTune
             Dim random As New Random
 
             If cachedsongs Is Nothing Then
-                cachedsongs = Await LastFMTagFetcher.GetSongs(moodname)
-                cache("Moods." & moodname) = cachedsongs
+                    cachedsongs = Await LastFMTagFetcher.GetSongs(moodname)
+                    cache("Moods." & moodname) = cachedsongs
             End If
 
             Dim SkipInfo As Dictionary(Of String, Integer) = DirectCast(Session("song_perfs"), Dictionary(Of String, Integer))
