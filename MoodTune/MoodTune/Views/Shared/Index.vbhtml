@@ -32,7 +32,12 @@ End Code
         playing = true;
         playAudio(
             getRandomMood(), 
-            function () { 
+            function () {
+                var widget = SC.Widget("sc-widget")
+                widget.getCurrentSound(function (sound) {
+                    console.log("finished listening to " &sound);
+                    ListenedAnalyse(sound.title)
+                });
                 getNextTrack(
                     getRandomMood(),
                     function (tracks) {

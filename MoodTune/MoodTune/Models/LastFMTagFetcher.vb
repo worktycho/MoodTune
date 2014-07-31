@@ -47,11 +47,13 @@ Public Class LastFMTagFetcher
             Dim cachename = "SongQueries." & MoodName & "." & pagenum
             Dim page = DirectCast(cache(cachename), List(Of Song))
             If page Is Nothing Then
+                Debug.WriteLine("Cache Miss, name is: " & cachename)
                 Dim Fetchtask = FetchSongs(MoodName, pagenum)
                 Dim FetchedSongs As List(Of Song)
                 Dim assignTask = Fetchtask.ContinueWith(Sub(finishedtask As Task(Of List(Of Song)))
                                                             FetchedSongs = finishedtask.Result
                                                             cache(cachename) = finishedtask.Result
+                                                            Debug.WriteLine("Cache store, name is: " & cachename)
                                                         End Sub)
                 Dim prevtask = assignTask
                 For i As Integer = 0 To 49
@@ -62,9 +64,13 @@ Public Class LastFMTagFetcher
                     Yield currenttask
                     prevtask = currenttask
                 Next
+            Else
+                Debug.WriteLine("Cache Hit on: " & cachename)
             End If
             For Each Song In page
-                Yield New Threading.Tasks.TaskCompletionSource(Of Song)(Song).Task
+                Dim task As New Threading.Tasks.TaskCompletionSource(Of Song)
+                task.SetResult(Song)
+                Yield task.Task
             Next
             pagenum += 1
         End While
