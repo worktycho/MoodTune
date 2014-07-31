@@ -2,6 +2,7 @@
 Option Strict On
 
 Imports Newtonsoft.Json
+Imports System.Threading.Tasks
 
 Namespace MoodTune
     Public Class MoodsController
@@ -15,22 +16,25 @@ Namespace MoodTune
             Dim moodname As String = CStr(RouteData.Values("MoodName"))
 
             Dim cache = HttpRuntime.Cache
-            Dim cachedsongs As List(Of Song) = DirectCast(cache("Moods." & moodname), List(Of Song))
 
             Dim random As New Random
-
-            If cachedsongs Is Nothing Then
-                    cachedsongs = Await LastFMTagFetcher.GetSongs(moodname)
-                    cache("Moods." & moodname) = cachedsongs
-            End If
+            Dim songs = LastFMTagFetcher.GetSongs(moodname)
 
             Dim SkipInfo As Dictionary(Of String, Integer) = DirectCast(Session("song_perfs"), Dictionary(Of String, Integer))
             If SkipInfo Is Nothing Then SkipInfo = New Dictionary(Of String, Integer)
             Dim chosenSongs As IEnumerable(Of Song)
-
-            chosenSongs = From song In cachedsongs
-                          Where Not (SkipInfo.ContainsKey(song.Name) AndAlso SkipInfo(song.Name) > 5)
-                          Skip random.Next(50) Take 1
+            Dim SongId As Integer = random.Next(50)
+            For Each SongTask In songs
+                Dim Song = Await SongTask
+                If (SkipInfo.ContainsKey(Song.Name) AndAlso SkipInfo(Song.Name) > 5) Then Continue For
+                If SongId = 0 Then
+                    Dim templist = New List(Of Song)
+                    templist.Add(Song)
+                    chosenSongs = templist
+                    Exit For
+                End If
+                SongId -= 1
+            Next
 
             For Each Song In chosenSongs
                 Song.Link = Await SoundCloudMapper.GetEmbedId(Song.Name)

@@ -1,6 +1,8 @@
 ﻿Option Strict On
 Option Infer On
 
+Imports System.Threading.Tasks
+
 Public Class LastFMTagFetcher
 
     Private Shared APIKey As String = "2f56d6db848d93c852aa61d070fe1a9b"
@@ -14,14 +16,15 @@ Public Class LastFMTagFetcher
 
     End Class
 
-    Public Shared Async Function GetSongs(MoodName As String) As Threading.Tasks.Task(Of List(Of Song))
+    Public Shared Async Function FetchSongs(MoodName As String, pagenum As Integer) As System.Threading.Tasks.Task(Of List(Of Song))
         Dim songsfetcher As New Net.Http.HttpClient()
         Dim response As Net.Http.HttpResponseMessage
         Try
-            response = Await songsfetcher.GetAsync("http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=" & MoodName & "&api_key=" & APIKey)
+            response = Await songsfetcher.GetAsync(String.Format("http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag={0}&api_key={1}&page={2}", MoodName, APIKey, pagenum))
         Catch ex As Net.WebException
             Throw New FetcherException("Failed to access API", ex)
         End Try
+
         Dim responsetext = Await response.Content.ReadAsStringAsync()
 
         Dim Xml = XDocument.Parse(responsetext)
@@ -34,7 +37,37 @@ Public Class LastFMTagFetcher
             Dim SongArtistName As String = item.<artist>.<name>.First().Value
             songs.Add(New Song With {.Name = SongName, .Artist = SongArtistName})
         Next
-
         Return songs
+    End Function
+
+    Public Shared Iterator Function GetSongs(MoodName As String) As IEnumerable(Of Threading.Tasks.Task(Of Song))
+        Dim cache = HttpRuntime.Cache
+        Dim pagenum = 0
+        While True
+            Dim cachename = "SongQueries." & MoodName & "." & pagenum
+            Dim page = DirectCast(cache(cachename), List(Of Song))
+            If page Is Nothing Then
+                Dim Fetchtask = FetchSongs(MoodName, pagenum)
+                Dim FetchedSongs As List(Of Song)
+                Dim assignTask = Fetchtask.ContinueWith(Sub(finishedtask As Task(Of List(Of Song)))
+                                                            FetchedSongs = finishedtask.Result
+                                                            cache(cachename) = finishedtask.Result
+                                                        End Sub)
+                Dim prevtask = assignTask
+                For i As Integer = 0 To 49
+                    Dim i2 = i
+                    Dim currenttask = prevtask.ContinueWith(Of Song)(Function() As Song
+                                                                         Return FetchedSongs(i2)
+                                                                     End Function)
+                    Yield currenttask
+                    prevtask = currenttask
+                Next
+            End If
+            For Each Song In page
+                Yield New Threading.Tasks.TaskCompletionSource(Of Song)(Song).Task
+            Next
+            pagenum += 1
+        End While
+
     End Function
 End Class
