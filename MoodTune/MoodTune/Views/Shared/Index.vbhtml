@@ -96,7 +96,12 @@ End Code
 
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->
 <img src="@(Url.Content("~/Content/assets/logolarge.png"))">
-<ul class="instructions"><li>1. Choose 1 or more moods.</li><li>2. Wait a few seconds for the song to load.</li><li>================</li><li>Enjoy listening to a variety of music from the selected catagory!</li></ul>
+<ul class="instructions">
+    <li>1. Choose 1 or more moods.</li>
+    <li>2. Wait a few seconds for the song to load.</li>
+    <li>================</li>
+    <li>Enjoy listening to a variety of music from the selected catagory!</li>
+</ul>
 <div class="tags">
     <article class="tag" onclick="tagSelect('Happy');"><img src="@(Url.Content("~/Content/icons/happy.gif"))"><span id="Happy">Happy</span></article>
     <article class="tag" onclick="tagSelect('sad');"><img src="@(Url.Content("~/Content/icons/sad.gif"))"><span id="sad">Sad</span></article>
