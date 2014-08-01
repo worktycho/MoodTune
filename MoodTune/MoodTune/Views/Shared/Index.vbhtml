@@ -110,7 +110,7 @@ End Code
     })();
 
 </script>
-<div id="mainwrapper" style="max-width:1000px; margin: auto 0; width: 95%">
+<div id="mainwrapper" style="max-width:1000px; margin: 0 auto; width: 95%">
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->
 <div class="instructions">
     <!--"width:199px;height:266px;position:absolute;right:10%;top:40%" -->
