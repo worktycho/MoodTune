@@ -2,7 +2,7 @@
     getSongsByMood(mood, function (tracks) {
         var frame = document.createElement("iframe");
         frame.id = "sc-widget";
-        $('body')[0].appendChild(frame);
+        $('#mainwrapper')[0].appendChild(frame);
         frame.src = "https://w.soundcloud.com/player/?auto_play=true&url=" + GetSoundCloudURL(tracks[0]);
         widget       = SC.Widget(frame);
         widget.bind(SC.Widget.Events.READY, function() {

@@ -110,15 +110,18 @@ End Code
     })();
 
 </script>
-
+<div id="mainwrapper" style="max-width:1000px; margin: auto 0; width: 95%">
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->
-
-<ul class="instructions">
-    <li>1. Choose 1 or more moods.</li>
-    <li>2. Wait a few seconds for the song to load.</li>
-    <li>================</li>
-    <li>Enjoy listening to a variety of music from the selected catagory!</li>
-</ul>
+<div class="instructions">
+    <!--"width:199px;height:266px;position:absolute;right:10%;top:40%" -->
+    <img src="@(Url.Content("~/Content/logolarge.png"))" style="height: 100px; width: auto; right: 8px" />
+    <ul>
+        <li>1. Choose 1 or more moods.</li>
+        <li>2. Wait a few seconds for the song to load.</li>
+        <li>================</li>
+        <li>Enjoy listening to a variety of music from the selected catagory!</li>
+    </ul>
+</div>
 <div class="tags">
     <article class="tag" >
         <img onclick="tagSelect('Happy');" src="@(Url.Content("~/Content/icons/happy.gif"))"><span id="Happy">Happy</span></article>
@@ -152,3 +155,4 @@ End Code
 	 <p>Your user agent does not support the HTML5 Audio element.</p>
 	</audio>
 	-->
+</div>
