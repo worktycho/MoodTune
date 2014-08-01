@@ -114,7 +114,7 @@ End Code
 <!--<h1>Welcome to the Mood Tune Website!</h1>-->
 <div class="instructions">
     <!--"width:199px;height:266px;position:absolute;right:10%;top:40%" -->
-    <img src="@(Url.Content("~/Content/logolarge.png"))" style="height: 100px; width: auto; right: 8px" />
+    <img src="@(Url.Content("~/Content/logolarge.png"))" style="height: 100px; width: auto; float:right; margin-right: 8px; margin-top: 8px" />
     <ul>
         <li>1. Choose 1 or more moods.</li>
         <li>2. Wait a few seconds for the song to load.</li>
