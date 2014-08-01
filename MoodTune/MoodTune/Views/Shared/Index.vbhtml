@@ -73,6 +73,7 @@ End Code
     }
 
     (function () {
+
         setTimeout(function () {
             @code
                 If Session("Song_prefs") Is Nothing Then
@@ -119,26 +120,26 @@ End Code
     <li>Enjoy listening to a variety of music from the selected catagory!</li>
 </ul>
 <div class="tags">
-    <article class="tag" onclick="tagSelect('Happy');">
-        <img src="@(Url.Content("~/Content/icons/happy.gif"))"><span id="Happy">Happy</span></article>
-    <article class="tag" onclick="tagSelect('sad');">
-        <img src="@(Url.Content("~/Content/icons/sad.gif"))"><span id="sad">Sad</span></article>
-    <article class="tag" onclick="tagSelect('Dramatic');">
-        <img src="@(Url.Content("~/Content/icons/dramatic.gif"))"><span id="Dramatic">Dramatic</span></article>
+    <article class="tag" >
+        <img onclick="tagSelect('Happy');" src="@(Url.Content("~/Content/icons/happy.gif"))"><span id="Happy">Happy</span></article>
+    <article class="tag" >
+        <img onclick="tagSelect('sad');" src="@(Url.Content("~/Content/icons/sad.gif"))"><span id="sad">Sad</span></article>
+    <article class="tag" >
+        <img onclick="tagSelect('Dramatic');" src="@(Url.Content("~/Content/icons/dramatic.gif"))"><span id="Dramatic">Dramatic</span></article>
 
-    <article class="tag" onclick="tagSelect('Inspirational');">
-        <img src="@(Url.Content("~/Content/icons/inspirational.gif"))"><span id="Inspirational">Inspirational</span></article>
-    <article class="tag" onclick="tagSelect('Melancholic');">
-        <img src="@(Url.Content("~/Content/icons/melancholic.gif"))"><span id="Melancholic">Melancholic</span></article>
-    <article class="tag" onclick="tagSelect('Angry');">
-        <img src="@(Url.Content("~/Content/icons/angry.gif"))"><span id="Angry">Angry</span></article>
+    <article class="tag">
+        <img  onclick="tagSelect('Inspirational');" src="@(Url.Content("~/Content/icons/inspirational.gif"))"><span id="Inspirational">Inspirational</span></article>
+    <article class="tag" >
+        <img onclick="tagSelect('Melancholic');" src="@(Url.Content("~/Content/icons/melancholic.gif"))"><span id="Melancholic">Melancholic</span></article>
+    <article class="tag" >
+        <img onclick="tagSelect('Angry');" src="@(Url.Content("~/Content/icons/angry.gif"))"><span id="Angry">Angry</span></article>
 
-    <article class="tag" onclick="tagSelect('Calm');">
-        <img src="@(Url.Content("~/Content/icons/calm.gif"))"><span id="Calm">Calm</span></article>
-    <article class="tag" onclick="tagSelect('excited');">
-        <img src="@(Url.Content("~/Content/icons/excited.gif"))"><span id="excited">Excited</span></article>
-    <article class="tag" onclick="tagSelect('nervous');">
-        <img src="@(Url.Content("~/Content/icons/nervous.gif"))"><span id="nervous">Nervous</span></article>
+    <article class="tag" >
+        <img onclick="tagSelect('Calm');" src="@(Url.Content("~/Content/icons/calm.gif"))"><span id="Calm">Calm</span></article>
+    <article class="tag" >
+        <img onclick="tagSelect('excited');" src="@(Url.Content("~/Content/icons/excited.gif"))"><span id="excited">Excited</span></article>
+    <article class="tag" >
+        <img onclick="tagSelect('nervous');" src="@(Url.Content("~/Content/icons/nervous.gif"))"><span id="nervous">Nervous</span></article>
 
 </div>
 <input type="button" class="rndbtn" onclick="randomise()" value="Randomise">
