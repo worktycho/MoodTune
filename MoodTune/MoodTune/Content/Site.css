@@ -86,6 +86,7 @@ textarea {
     margin-bottom: 24px;
     clear: both;
     overflow:hidden;
+    text-align: center;
 }
 .tag {
     width: 30%;
@@ -94,7 +95,7 @@ textarea {
     border-radius: 3px;
     background-color: rgb(215, 215, 215);
     border-color: rgb(200, 200, 200);
-    margin: 10px 10px 24px 10px;
+    margin: 10px 1% 50px 0px;
     display: inline-block;
     transition: all 0.5s linear;
     position: relative;

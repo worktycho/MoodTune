@@ -110,7 +110,7 @@ End Code
     })();
 
 </script>
-<div id="mainwrapper" style="max-width:1000px; margin: 0 auto; width: 95%">
+<div id="mainwrapper" style="max-width:972px; margin: 0 auto; width: 95%">
 <div class="instructions">
     <!--"width:199px;height:266px;position:absolute;right:10%;top:40%" -->
     <img src="@(Url.Content("~/Content/Logowhite.png"))" style="height: 100px; width: auto; float:right; margin-right: 8px; margin-top: 8px" />
