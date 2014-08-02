@@ -22,7 +22,12 @@ function getSongsByMood(name, callback) {
     $.ajax("/Moods/" + name, {
         cache: false,
         success: function (resp) { var data = JSON.parse(resp); callback(data) },
-        error: function (_, msg) {console.log("error " & msg);}
+        error: function (_, msg) {
+            console.log("error " & msg);
+            var element = document.createElement('H2');
+            element.innerHTML = "Sorry, Something went wrong. Please try reloading the page or report it to one of team";
+            $('#mainwrapper')[0].appendChild(element);
+        }
     });
 }
 
